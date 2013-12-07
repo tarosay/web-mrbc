@@ -42,17 +42,24 @@ class CompilersController < ApplicationController
 
   #Send mrb file
   def send_mrb( pathrbname, opt )
-    if(opt.include?("-h")==true)then
-      o, e, s = Open3.capture3("mrbc -h >&2")
-      redirect_to @compiler, notice: e.to_s + ' ' + s.to_s
+    if(opt.include?("--verbose")==true && opt.include?("-v")==true)then
+      @compiler.destroy
+      render action: "new"
+      return
+	end
 
+    if(opt.include?("--")==true)then
+      o, e, s = Open3.capture3("mrbc " + opt + " >&2")
+      redirect_to @compiler, notice: e.to_s + ' ' + s.to_s
       @compiler.destroy
       return
     end
 
     if( pathrbname=='' )then
+      o, e, s = Open3.capture3("mrbc -h >&2")
+      redirect_to @compiler, notice: e.to_s + ' ' + s.to_s
       @compiler.destroy
-      render action: "new"
+      #render action: "new"
       return
     end
 
