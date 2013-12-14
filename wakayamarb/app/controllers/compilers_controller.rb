@@ -42,7 +42,7 @@ class CompilersController < ApplicationController
 
   #Send mrb file
   def send_mrb( pathrbname, opt )
-    if(opt.include?("--verbose")==true && opt.include?("-v")==true)then
+    if(opt.include?("--verbose")==true || opt.include?("-v")==true || opt.include?("-o")==true )then
       @compiler.destroy
       render action: "new"
       return
@@ -65,14 +65,18 @@ class CompilersController < ApplicationController
 
     rbfile = File.basename(pathrbname)
     mrbfile = File.basename(pathrbname, ".rb") + ".mrb"
+    cfile = File.basename(pathrbname, ".rb") + ".c"
     fullpath = Rails.root.to_s + "/public" + File.dirname(pathrbname) + "/" 
-    o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " -o" + mrbfile + " " + rbfile + " >&2")
+    #o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " -o" + mrbfile + " " + rbfile + " >&2")
+    o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " " + rbfile + " >&2")
     if( e==''  ) then
-      mrb_data = File.binread(fullpath + mrbfile)
-      send_data(mrb_data,
-        filename: mrbfile,
-        type: "application/octet-stream",
-        disposition: "inline")
+      if( opt.include?("-B")==true )then
+        mrb_data = File.binread(fullpath + cfile)
+        send_data(mrb_data, filename: cfile, type: "application/octet-stream", disposition: "inline")
+      else
+        mrb_data = File.binread(fullpath + mrbfile)
+        send_data(mrb_data, filename: mrbfile, type: "application/octet-stream", disposition: "inline")
+      end
     else
       redirect_to @compiler, notice: e.to_s + ' ' + s.to_s
     end
