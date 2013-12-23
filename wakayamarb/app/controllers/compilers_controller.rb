@@ -63,10 +63,17 @@ class CompilersController < ApplicationController
       return
     end
 
-    rbfile = File.basename(pathrbname)
-    mrbfile = File.basename(pathrbname, ".rb") + ".mrb"
-    cfile = File.basename(pathrbname, ".rb") + ".c"
     fullpath = Rails.root.to_s + "/public" + File.dirname(pathrbname) + "/" 
+
+	bname = File.basename(pathrbname).downcase
+	if( bname!=File.basename(pathrbname) )then
+		File.rename( fullpath + File.basename(pathrbname), fullpath + bname )
+	end
+
+    rbfile = File.basename(bname)
+    mrbfile = File.basename(bname, ".rb") + ".mrb"
+    cfile = File.basename(bname, ".rb") + ".c"
+  
     #o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " -o" + mrbfile + " " + rbfile + " >&2")
     o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " " + rbfile + " >&2")
     if( e==''  ) then
