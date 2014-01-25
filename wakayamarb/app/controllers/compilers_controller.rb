@@ -42,13 +42,13 @@ class CompilersController < ApplicationController
 
   #Send mrb file
   def send_mrb( pathrbname, opt )
-    if(opt.include?("--verbose")==true || opt.include?("-v")==true || opt.include?("-o")==true )then
+    if(opt.include?("--verbose")==true || opt.include?("-v")==true || opt.include?("-o")==true ) then
       @compiler.destroy
       render action: "new"
       return
-	end
+    end
 
-    if(opt.include?("--")==true)then
+    if(opt.include?("--")==true) then
       o, e, s = Open3.capture3("mrbc " + opt + " >&2")
       redirect_to @compiler, notice: e.to_s + ' ' + s.to_s
       @compiler.destroy
