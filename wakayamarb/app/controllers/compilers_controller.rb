@@ -63,7 +63,7 @@ class CompilersController < ApplicationController
       return
     end
 
-    fullpath = Rails.root.to_s + "/public" + File.dirname(pathrbname) + "/" 
+    fullpath = Rails.root.to_s + "/public" + File.dirname(pathrbname) + "/"
 
 	bname = File.basename(pathrbname).downcase
 	if( bname!=File.basename(pathrbname) )then
@@ -73,7 +73,7 @@ class CompilersController < ApplicationController
     rbfile = File.basename(bname)
     mrbfile = File.basename(bname, ".rb") + ".mrb"
     cfile = File.basename(bname, ".rb") + ".c"
-  
+
     #o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " -o" + mrbfile + " " + rbfile + " >&2")
     o, e, s = Open3.capture3("cd " + fullpath + "; mrbc " + opt + " " + rbfile + " >&2")
     if( e==''  ) then
@@ -93,7 +93,7 @@ class CompilersController < ApplicationController
   end
 
   def create
-    @compiler = Compiler.new(params[:compiler])
+    @compiler = Compiler.new(compiler_params)
 
     respond_to do |format|
       if @compiler.save
@@ -116,5 +116,9 @@ class CompilersController < ApplicationController
       format.html { redirect_to compilers_url }
       format.json { head :no_content }
     end
+  end
+
+  def compiler_params
+    params.require(:compiler).permit(:options, :rb)
   end
 end
