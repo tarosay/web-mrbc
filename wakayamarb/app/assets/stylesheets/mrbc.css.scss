@@ -39,7 +39,7 @@ html, body {
     bottom: 0;
     margin: auto;
     width: 100%;
-    height: 450px;
+    height: 400px;
     margin: auto;
     padding: 1em;
     border: 1px solid #ccffff;
@@ -60,19 +60,27 @@ input[type="file"], input[type="submit"] {
 
 .field {
     text-align: center;
-    margin: 2em;
+    margin: 1em;
     input[type="text"] {
         padding: .25rem;
         font-size: 1rem;
         border-radius: 5px;
         background-color: transparent;
         color: $main_color;
+        &:active,
+        &:focus,
+        &:active {
+          background-image: none;
+          outline: 0;
+          -webkit-box-shadow: none;
+                  box-shadow: none;
+        }
     }
 }
 
 .actions {
     text-align: center;
-    margin: 3em;
+    margin: 2em;
     input {
         padding: .75rem;
         border-width: 2px;
