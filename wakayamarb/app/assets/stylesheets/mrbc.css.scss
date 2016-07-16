@@ -1,3 +1,42 @@
 // Place all the styles related to the mrbc controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 18px;
+    line-height: normal;
+
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+.bytecode-info {
+    font-size: 1rem;
+    margin-left: .5em;
+    &:before {
+        content: "(";
+    }
+    &:after {
+        content: ")";
+    }
+}
+
+.main {
+    max-width: 700px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 1em;
+    border-left: 1px solid #ccffff;
+    border-right: 1px solid #ccffff;
+    background-color: #f5ffff;
+    box-sizing:border-box;
+}
+
+input[type="file"], input[type="submit"] {
+    &:hover {
+        cursor: pointer;
+    }
+}
