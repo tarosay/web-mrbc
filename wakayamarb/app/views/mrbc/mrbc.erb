@@ -9,8 +9,7 @@
             <%= f.file_field :rb %>
           </div>
           <div class="field">
-            <%= f.label 'enter compiler options.' %><br />
-            <%= f.text_field :options %>
+            <%= f.text_field :options, :placeholder => "Enter compiler options. ex -g" %>
           </div>
           <div class="actions">
             <%= f.submit %>

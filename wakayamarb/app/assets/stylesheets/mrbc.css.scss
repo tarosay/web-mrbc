@@ -39,7 +39,7 @@ html, body {
     bottom: 0;
     margin: auto;
     width: 100%;
-    height: 400px;
+    height: 420px;
     margin: auto;
     padding: 1em;
     border: 1px solid #ccffff;
@@ -52,7 +52,15 @@ html, body {
 }
 
 
-input[type="file"], input[type="submit"] {
+input {
+    &:active,
+    &:focus,
+    &:active {
+      background-image: none;
+      outline: 0;
+      -webkit-box-shadow: none;
+              box-shadow: none;
+    }
     &:hover {
         cursor: pointer;
     }
@@ -62,18 +70,18 @@ input[type="file"], input[type="submit"] {
     text-align: center;
     margin: 1em;
     input[type="text"] {
-        padding: .25rem;
+        width: 280px;
+        padding: .5rem;
         font-size: 1rem;
+        border-color: lighten($main_color, 10%);
+        border-width: 3px;
         border-radius: 5px;
         background-color: transparent;
         color: $main_color;
+        &:hover,
         &:active,
-        &:focus,
-        &:active {
-          background-image: none;
-          outline: 0;
-          -webkit-box-shadow: none;
-                  box-shadow: none;
+        &:focus {
+            background-color: lighten($main_color, 75%);
         }
     }
 }
@@ -83,7 +91,7 @@ input[type="file"], input[type="submit"] {
     margin: 2em;
     input {
         padding: .75rem;
-        border-width: 2px;
+        border-width: 3px;
         border-style: solid;
         border-radius: 7px;
         font-size: 1rem;
