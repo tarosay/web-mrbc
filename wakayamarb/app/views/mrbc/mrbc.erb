@@ -1,17 +1,19 @@
-<h1>Wakayama.rb Web-mrbc Compiler</h1>
-<h1>(ByteCode Format Ver.0002)</h1>
+<div class="main">
+    <div class="container">
+        <h1 class="title">Wakayama.rb Web-mrbc Compiler</h1>
+        <p class="bytecode-info">ByteCode Format Ver.0003</p>
 
-<%= form_for(@compiler) do |f| %>
-  <div class="field">
-    <%= f.label ' mruby source code' %><br />
-    <%= f.file_field :rb %>
-  </div>
-  <div class="field">
-    <%= f.label ' compiler options' %><br />
-    <%= f.text_field :options %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
+        <%= form_for(@compiler) do |f| %>
+          <div class="field">
+            <%= f.label 'select mruby source code.' %><br />
+            <%= f.file_field :rb %>
+          </div>
+          <div class="field">
+            <%= f.text_field :options, :placeholder => "Enter compiler options. ex -g" %>
+          </div>
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+        <% end %>
+    </div><!-- container -->
+</div><!-- main -->
